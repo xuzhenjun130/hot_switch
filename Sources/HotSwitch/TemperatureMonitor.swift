@@ -58,11 +58,11 @@ final class TemperatureMonitor: ObservableObject {
 extension ProcessInfo.ThermalState {
     var label: String {
         switch self {
-        case .nominal: return "Nominal"
-        case .fair: return "Fair"
-        case .serious: return "Serious"
-        case .critical: return "Critical"
-        @unknown default: return "Unknown"
+        case .nominal: return "正常"
+        case .fair: return "偏高"
+        case .serious: return "严重"
+        case .critical: return "临界"
+        @unknown default: return "未知"
         }
     }
 }

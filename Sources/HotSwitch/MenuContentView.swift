@@ -21,10 +21,10 @@ struct MenuContentView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            row(icon: "flame", title: "Thermal Pressure:", value: monitor.thermalState.label)
-            row(icon: "thermometer.medium", title: "Temperature:",
+            row(icon: "flame", title: "散热压力：", value: monitor.thermalState.label)
+            row(icon: "thermometer.medium", title: "温度：",
                 value: monitor.temperature.map { String(format: "%.0f°C", $0) } ?? "--")
-            row(icon: "cpu", title: "Top Process:",
+            row(icon: "cpu", title: "占用最高进程：",
                 value: monitor.topProcess.map { String(format: "%@ %.0f%%", $0.name, $0.percent) } ?? "--")
 
             chart
@@ -65,14 +65,14 @@ struct MenuContentView: View {
         Chart {
             ForEach(monitor.history) { s in
                 LineMark(x: .value("Time", s.date), y: .value("Temperature", s.value))
-                    .foregroundStyle(by: .value("Series", "Temperature"))
+                    .foregroundStyle(by: .value("Series", "温度"))
                     .interpolationMethod(.monotone)
             }
-            RuleMark(y: .value("On", fan.onThreshold))
+            RuleMark(y: .value("开启阈值", fan.onThreshold))
                 .foregroundStyle(.red.opacity(0.6))
                 .lineStyle(StrokeStyle(lineWidth: 1, dash: [4, 3]))
         }
-        .chartForegroundStyleScale(["Temperature": Color.orange])
+        .chartForegroundStyleScale(["温度": Color.orange])
         .chartXAxis(.hidden)
         .chartYScale(domain: yDomain)
         .chartLegend(position: .bottom, alignment: .leading)
